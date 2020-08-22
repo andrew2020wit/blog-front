@@ -12,7 +12,7 @@ import { enableAkitaProdMode } from '@datorama/akita';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { environment } from '../environments/environment';
+import { baseApiUrl, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShareModule } from './share.module';
@@ -44,7 +44,7 @@ if (environment.production) {
     { provide: MAT_DATE_LOCALE, useValue: 'ru-ru' },
     {
       provide: NG_ENTITY_SERVICE_CONFIG,
-      useValue: { baseUrl: 'http://127.0.0.1:3000/api' },
+      useValue: { baseUrl: baseApiUrl },
     },
   ],
   bootstrap: [AppComponent],
