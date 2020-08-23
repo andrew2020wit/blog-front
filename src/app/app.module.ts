@@ -13,8 +13,8 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { baseApiUrl, environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth-module/AuthModule';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
 
@@ -25,8 +25,8 @@ if (environment.production) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AuthModule,
     ViewModule,
-    AppRoutingModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
