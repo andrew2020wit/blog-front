@@ -13,6 +13,6 @@
   ],
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts", "src/app/auth-module/view/new-user/new-user.component.ts"
   ]
 }

@@ -3,4 +3,8 @@ export interface ILink {
   link: string;
 }
 
-export const menuList: ILink[] = [{ name: 'Home', link: '/' }];
+export const menuList: ILink[] = [
+  { name: 'Home', link: '/' },
+  { name: 'Login', link: '/login' },
+  { name: 'Register', link: '/new-user' },
+];

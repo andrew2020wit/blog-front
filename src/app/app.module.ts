@@ -14,7 +14,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { baseApiUrl, environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth-module/AuthModule';
+import { AuthModule } from './auth-module/auth-module';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
 
