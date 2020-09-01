@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@app/auth-module/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  constructor() {}
+  isLogged = false;
+  constructor(private authService: AuthService) {
+    this.authService.currentUser.subscribe((user) => {
+      this.isLogged = !!user;
+    });
+  }
 
   ngOnInit(): void {}
 

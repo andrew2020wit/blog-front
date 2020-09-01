@@ -1,11 +1,11 @@
 <span>
-
-  | userName |
-
-  <button mat-button color="accent" (click)="tempLogIn()"> LogIn </button>
-
-  <a routerLink="/new-login">
-    <button mat-button color="accent"> Registration</button>
-  </a>
-
+  <span *ngIf="isLogged">
+    <app-user-widget></app-user-widget>
+  </span>
+  <span *ngIf="!isLogged">
+    <button mat-button color="accent" (click)="tempLogIn()"> LogIn </button>
+    <a routerLink="/new-login">
+      <button mat-button color="accent"> Registration</button>
+    </a>
+  </span>
 </span>
