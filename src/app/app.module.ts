@@ -15,6 +15,8 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { baseApiUrl, environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth-module/auth-module';
+import { ErrorInterceptor } from './auth-module/interceptors/errors.interceptor';
+import { JwtInterceptor } from './auth-module/interceptors/jwt.interceptor';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
 
@@ -41,6 +43,8 @@ if (environment.production) {
     AkitaNgRouterStoreModule.forRoot(),
   ],
   providers: [
+    ErrorInterceptor,
+    JwtInterceptor,
     { provide: MAT_DATE_LOCALE, useValue: 'ru-ru' },
     {
       provide: NG_ENTITY_SERVICE_CONFIG,

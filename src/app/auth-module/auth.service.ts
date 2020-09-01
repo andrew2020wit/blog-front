@@ -37,7 +37,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<CurrentUser | undefined>(
     undefined
   );
-  private currentToken: string;
+  public currentToken: string;
   public currentUser: Observable<CurrentUser | undefined>;
 
   constructor(private http: HttpClient) {
