@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth-module/auth.guard';
-import { NewUserComponent } from './auth-module/view/new-user/new-user.component';
 import { UserProfileComponent } from './auth-module/view/user-profile/user-profile.component';
+import { UserRegisterFormComponent } from './auth-module/view/user-register-form/user-register-form.component';
 import { UsersListComponent } from './auth-module/view/users-list/users-list.component';
 import { HomePageComponent } from './view/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-page.component';
@@ -10,7 +10,7 @@ import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-pag
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
   // { path: 'login', component: LoginComponent },
-  { path: 'new-user', component: NewUserComponent },
+  { path: 'new-user', component: UserRegisterFormComponent },
   { path: 'admin/users-list', component: UsersListComponent },
   {
     path: 'user-profile',

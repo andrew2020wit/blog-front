@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '@app/auth-module/auth.service';
-import { LoginComponent } from '../login/login.component';
+import { LoginFormComponent } from '../login-form/login-form.component';
 
 @Component({
   selector: 'app-auth',
@@ -19,7 +19,7 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {}
 
   popupLogIn() {
-    const dialogRef = this.loginDialog.open(LoginComponent);
+    const dialogRef = this.loginDialog.open(LoginFormComponent);
     dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
     });

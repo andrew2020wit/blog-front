@@ -1,0 +1,73 @@
+<form [formGroup]="registerForm">
+  <mat-card>
+    <mat-card-header>Welcome!</mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Your login:</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Your login:"
+          formControlName="login"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Your full name </mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Your full name"
+          formControlName="fullName"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>password:</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="password:"
+          formControlName="password"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>confirm password:</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="confirm password:"
+          formControlName="confirmPassword"
+        />
+      </mat-form-field>
+      <div
+        *ngIf="
+          f.confirmPassword.errors &&
+          (f.confirmPassword.dirty || f.confirmPassword.touched)
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.confirmPassword.errors.required">
+          Confirm Password is required
+        </div>
+        <div *ngIf="f.confirmPassword.errors.mustMatch">
+          Passwords must match
+        </div>
+      </div>
+    </mat-card-content>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="!registerForm.valid"
+      (click)="submit()"
+    >
+      Register
+    </button>
+
+    <p>{{ statusMessage.message }}</p>
+    <button mat-button color="primary" [disabled]="!statusMessage.ok">
+      Continue
+    </button>
+  </mat-card>
+</form>
