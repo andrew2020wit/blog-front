@@ -70,12 +70,15 @@ export class AuthService {
   }
 
   login(user: LoginDto) {
+    // console.log('login step');
+    // console.log(user);
+
     this.http
       .post<JWTokenDTO>(httpAdr + '/api/auth/get-token-obj', user)
       .subscribe((tokenObj) => {
         localStorage.setItem(keyLocalStorToken, tokenObj.access_token);
         this.loadLocalToken();
-        // console.log(tokenObj);
+        console.log(tokenObj);
       });
   }
 
