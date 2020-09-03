@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { CurrentUser } from './dto/current-user';
 import { LoginDto } from './dto/login.dto';
 import { JWTokenDTO } from './dto/token-object.dto';
+import { UsersStore } from './state/users.store';
 
 const jwtHelperService = new JwtHelperService();
 const keyLocalStorToken = 'keyLocalStorToken';
@@ -40,7 +41,7 @@ export class AuthService {
   public currentToken: string;
   public currentUser: Observable<CurrentUser | undefined>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private usersStore: UsersStore) {
     this.loadLocalToken();
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -80,6 +81,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(keyLocalStorToken);
+    this.usersStore.remove();
     this.loadLocalToken();
   }
 }
