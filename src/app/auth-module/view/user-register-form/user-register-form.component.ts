@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SessionQuery } from '@app/auth-module/state/session.query';
 import { StatusMessageDto } from '../../../dto/status-message.dto';
 import { AuthService } from '../../auth.service';
 import { CreateUserDto } from '../../dto/create-user.dto';
@@ -13,11 +15,15 @@ import { MustMatch } from '../validators/must-match.validator';
 export class UserRegisterFormComponent implements OnInit {
   registerForm: FormGroup;
   statusMessage = new StatusMessageDto();
+  isLogged = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private sessionQuery: SessionQuery
   ) {
+    this.sessionQuery.isLogged$.subscribe((b) => (this.isLogged = b));
     this.registerForm = this.formBuilder.group(
       {
         login: ['', [Validators.required]],
@@ -31,13 +37,19 @@ export class UserRegisterFormComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.isLogged) {
+      const user = this.sessionQuery.currentUser;
+      this.registerForm.get('login').setValue(user.login);
+      this.registerForm.get('fullName').setValue(user.fullName);
+    }
+  }
 
   get f() {
     return this.registerForm.controls;
   }
 
-  submit() {
+  registerUser() {
     const newUser = new CreateUserDto();
     newUser.login = this.registerForm.get('login').value;
     newUser.password = this.registerForm.get('password').value;
@@ -46,5 +58,27 @@ export class UserRegisterFormComponent implements OnInit {
       this.statusMessage = m;
       console.log(m);
     });
+  }
+  async continue() {
+    await this.authService.login({
+      login: this.registerForm.get('login').value,
+      password: this.registerForm.get('password').value,
+    });
+    this.router.navigate(['']);
+  }
+  async editUserData() {
+    const newUser = new CreateUserDto();
+    newUser.login = this.registerForm.get('login').value;
+    newUser.password = this.registerForm.get('password').value;
+    newUser.fullName = this.registerForm.get('fullName').value;
+    this.authService.editUser$(newUser).subscribe((m) => {
+      this.statusMessage = m;
+      console.log('editUser:', m);
+    });
+    this.authService.logout();
+    // await this.authService.login({
+    //   login: newUser.login,
+    //   password: newUser.password,
+    // });
   }
 }

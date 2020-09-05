@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { SessionQuery } from './state/session.query';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private sessionQuery: SessionQuery) {}
   canActivate(): boolean {
-    if (this.authService.currentUserValue) {
+    if (this.sessionQuery.isLoggedIn) {
       return true;
     }
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
     return false;
   }
 }

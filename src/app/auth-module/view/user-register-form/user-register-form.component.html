@@ -1,53 +1,33 @@
 <form [formGroup]="registerForm">
   <mat-card>
-    <mat-card-header>Welcome!</mat-card-header>
+    <!-- <mat-card-header>Welcome!</mat-card-header> -->
     <mat-card-content>
       <mat-form-field>
         <mat-label>Your login:</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Your login:"
-          formControlName="login"
-        />
+        <input matInput type="text" minlength="3" maxlength="16" placeholder="Your login (3-16 symbol)"
+          formControlName="login" />
       </mat-form-field>
       <br />
       <mat-form-field>
         <mat-label>Your full name </mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Your full name"
-          formControlName="fullName"
-        />
+        <input matInput type="text" minlength="3" maxlength="32" placeholder="Your full name (3-32 symbol)"
+          formControlName="fullName" />
       </mat-form-field>
       <br />
       <mat-form-field>
         <mat-label>password:</mat-label>
-        <input
-          matInput
-          type="password"
-          placeholder="password:"
-          formControlName="password"
-        />
+        <input matInput type="password" minlength="2" maxlength="32" placeholder="password (2-32 symbol):"
+          formControlName="password" />
       </mat-form-field>
       <br />
       <mat-form-field>
         <mat-label>confirm password:</mat-label>
-        <input
-          matInput
-          type="password"
-          placeholder="confirm password:"
-          formControlName="confirmPassword"
-        />
+        <input matInput type="password" placeholder="confirm password:" formControlName="confirmPassword" />
       </mat-form-field>
-      <div
-        *ngIf="
+      <div *ngIf="
           f.confirmPassword.errors &&
           (f.confirmPassword.dirty || f.confirmPassword.touched)
-        "
-        class="invalid-feedback"
-      >
+        " class="invalid-feedback">
         <div *ngIf="f.confirmPassword.errors.required">
           Confirm Password is required
         </div>
@@ -56,18 +36,21 @@
         </div>
       </div>
     </mat-card-content>
-    <button
-      mat-button
-      color="primary"
-      [disabled]="!registerForm.valid"
-      (click)="submit()"
-    >
-      Register
-    </button>
+    <div *ngIf="!isLogged">
+      <button mat-button color="primary" [disabled]="!registerForm.valid" (click)="registerUser()">
+        Register
+      </button>
+      <p>{{ statusMessage.message }}</p>
+      <button mat-button color="primary" [disabled]="!statusMessage.ok" (click)="continue()">
+        Continue
+      </button>
+    </div>
+    <div *ngIf="isLogged">
+      <button mat-button color="primary" [disabled]="!registerForm.valid" (click)="editUserData()">
+        EditUserData
+      </button><br />
+      <small>You can change password also</small>
+    </div>
 
-    <p>{{ statusMessage.message }}</p>
-    <button mat-button color="primary" [disabled]="!statusMessage.ok">
-      Continue
-    </button>
   </mat-card>
 </form>

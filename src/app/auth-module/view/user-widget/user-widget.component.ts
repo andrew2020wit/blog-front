@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@app/auth-module/auth.service';
+import { SessionQuery } from '@app/auth-module/state/session.query';
 
 @Component({
   selector: 'app-user-widget',
@@ -8,8 +10,12 @@ import { AuthService } from '@app/auth-module/auth.service';
 })
 export class UserWidgetComponent implements OnInit {
   userName = '';
-  constructor(private authService: AuthService) {
-    authService.currentUser.subscribe((user) => {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private sessionQuery: SessionQuery
+  ) {
+    this.sessionQuery.currentUser$.subscribe((user) => {
       if (!!user) {
         this.userName = user.fullName;
       } else {
@@ -20,7 +26,8 @@ export class UserWidgetComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logOut() {
-    this.authService.logout();
+  async logOut() {
+    await this.authService.logout();
+    this.router.navigate(['']);
   }
 }

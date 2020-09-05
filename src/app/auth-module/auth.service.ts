@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { httpAdr } from '../config';
 import { StatusMessageDto } from './../dto/status-message.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { CurrentUser } from './dto/current-user';
 import { LoginDto } from './dto/login.dto';
 import { JWTokenDTO } from './dto/token-object.dto';
+import { SessionQuery } from './state/session.query';
+import { SessionStore } from './state/session.store';
 import { UsersStore } from './state/users.store';
 
 const jwtHelperService = new JwtHelperService();
 const keyLocalStorToken = 'keyLocalStorToken';
 
-interface IToken {
+export interface IToken {
   login: string;
   sub: string;
   role: string;
@@ -22,44 +23,44 @@ interface IToken {
   exp: number;
 }
 
-function tokenToCurrentUser(token: IToken): CurrentUser {
-  return {
-    id: token.sub,
-    role: token.role,
-    login: token.login,
-    fullName: token.fullName,
-  };
-}
+// function tokenToCurrentUser(token: IToken): CurrentUser {
+//   return {
+//     id: token.sub,
+//     role: token.role,
+//     login: token.login,
+//     fullName: token.fullName,
+//   };
+// }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<CurrentUser | undefined>(
-    undefined
-  );
-  public currentToken: string;
-  public currentUser: Observable<CurrentUser | undefined>;
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private usersStore: UsersStore,
+    private sessionStore: SessionStore,
+    private sessionQuery: SessionQuery
+  ) {
+    this.sessionQuery.token$.subscribe((token) => {
+      console.log('subscribe((token)', token);
+      console.log(this.sessionQuery.currentUser);
 
-  constructor(private http: HttpClient, private usersStore: UsersStore) {
-    this.loadLocalToken();
-    this.currentUser = this.currentUserSubject.asObservable();
+      if (!token) {
+        this.sessionStore.reset();
+      } else {
+        const tokenObj: IToken = jwtHelperService.decodeToken(token);
+        this.sessionStore.update({ currentUser: tokenObj });
+        this.sessionStore.update({ isLogged: true });
+      }
+      console.log(this.sessionQuery.currentUser);
+    });
   }
 
   loadLocalToken() {
     const access_token = localStorage.getItem(keyLocalStorToken);
-    if (access_token) {
-      this.currentToken = access_token;
-      const tokenObj: IToken = jwtHelperService.decodeToken(this.currentToken);
-      console.log(tokenObj);
-      this.currentUserSubject.next(tokenToCurrentUser(tokenObj));
-    } else {
-      this.currentUserSubject.next(undefined);
-    }
-  }
-
-  public get currentUserValue(): CurrentUser | undefined {
-    return this.currentUserSubject.value;
+    this.sessionStore.update({ token: access_token });
   }
 
   createUser$(newUser: CreateUserDto) {
@@ -69,22 +70,27 @@ export class AuthService {
     );
   }
 
-  login(user: LoginDto) {
-    // console.log('login step');
-    // console.log(user);
+  editUser$(editUser: CreateUserDto) {
+    return this.http.post<StatusMessageDto>(
+      httpAdr + '/api/auth/edit-user',
+      editUser
+    );
+  }
 
+  async login(user: LoginDto) {
     this.http
       .post<JWTokenDTO>(httpAdr + '/api/auth/get-token-obj', user)
       .subscribe((tokenObj) => {
+        console.log('get tokenObj:', tokenObj);
         localStorage.setItem(keyLocalStorToken, tokenObj.access_token);
         this.loadLocalToken();
-        console.log(tokenObj);
       });
   }
 
-  logout() {
+  async logout() {
+    this.router.navigate(['']);
     localStorage.removeItem(keyLocalStorToken);
-    this.usersStore.remove();
-    this.loadLocalToken();
+    this.usersStore.reset();
+    this.sessionStore.reset();
   }
 }
