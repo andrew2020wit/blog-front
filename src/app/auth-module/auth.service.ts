@@ -5,10 +5,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { httpAdr } from '../config';
 import { StatusMessageDto } from './../dto/status-message.dto';
+import { AdminUsersService } from './admin-users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { JWTokenDTO } from './dto/token-object.dto';
-import { UsersStore } from './state/users.store';
 
 const jwtHelperService = new JwtHelperService();
 const keyLocalStorToken = 'keyLocalStorToken';
@@ -32,13 +32,21 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private usersStore: UsersStore
+    private adminUsersService: AdminUsersService
   ) {
     this.appUser$ = new BehaviorSubject(null);
   }
 
   get appUser(): IToken | null {
     return this.appUser$.getValue();
+  }
+
+  get appUserRole(): string | null {
+    const user: IToken = this.appUser$.getValue();
+    if (!!user) {
+      return user.role;
+    }
+    return null;
   }
 
   loadLocalToken() {
@@ -51,7 +59,7 @@ export class AuthService {
       const tokenObj: IToken = jwtHelperService.decodeToken(access_token);
       this.appUser$.next(tokenObj);
     }
-    console.log('loadLocalToken: ', access_token);
+    // console.log('loadLocalToken: ', access_token);
   }
 
   createUser$(newUser: CreateUserDto) {
@@ -82,6 +90,6 @@ export class AuthService {
     this.router.navigate(['']);
     localStorage.removeItem(keyLocalStorToken);
     this.appUser$.next(null);
-    this.usersStore.reset();
+    this.adminUsersService.users$.next(null);
   }
 }
