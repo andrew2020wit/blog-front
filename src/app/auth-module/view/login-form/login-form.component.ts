@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit {
     const user = new LoginDto();
     user.login = this.newLoginForm.get('login').value;
     user.password = this.newLoginForm.get('password').value;
-    await this.authService.login(user);
-    this.router.navigate([''], { relativeTo: this.route });
+    await this.authService.getToken(user);
+    //  this.router.navigate([''], { relativeTo: this.route });
   }
 }

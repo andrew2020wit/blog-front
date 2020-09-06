@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SessionQuery } from '@app/auth-module/state/session.query';
 import { StatusMessageDto } from '../../../dto/status-message.dto';
 import { AuthService } from '../../auth.service';
 import { CreateUserDto } from '../../dto/create-user.dto';
@@ -20,10 +19,11 @@ export class UserRegisterFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private sessionQuery: SessionQuery
+    private router: Router
   ) {
-    this.sessionQuery.isLogged$.subscribe((b) => (this.isLogged = b));
+    this.authService.appUser$.subscribe((user) => {
+      this.isLogged = !!user;
+    });
     this.registerForm = this.formBuilder.group(
       {
         login: ['', [Validators.required]],
@@ -39,7 +39,7 @@ export class UserRegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isLogged) {
-      const user = this.sessionQuery.currentUser;
+      const user = this.authService.appUser;
       this.registerForm.get('login').setValue(user.login);
       this.registerForm.get('fullName').setValue(user.fullName);
     }
@@ -60,7 +60,7 @@ export class UserRegisterFormComponent implements OnInit {
     });
   }
   async continue() {
-    await this.authService.login({
+    await this.authService.getToken({
       login: this.registerForm.get('login').value,
       password: this.registerForm.get('password').value,
     });
@@ -75,10 +75,12 @@ export class UserRegisterFormComponent implements OnInit {
       this.statusMessage = m;
       console.log('editUser:', m);
     });
-    this.authService.logout();
-    // await this.authService.login({
-    //   login: newUser.login,
-    //   password: newUser.password,
-    // });
+    // this.authService.logout();
+    setTimeout(() => {
+      this.authService.getToken({
+        login: newUser.login,
+        password: newUser.password,
+      });
+    }, 500);
   }
 }

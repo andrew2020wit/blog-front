@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@app/auth-module/auth.service';
 import { menuList } from './site-menu';
 
 @Component({
@@ -6,8 +7,12 @@ import { menuList } from './site-menu';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   menuOn = true;
   links = menuList;
-  constructor() {}
+  constructor(private authService: AuthService) {
+    this.authService.loadLocalToken();
+    console.log('AppComponent: loadLocalToken()');
+  }
+  ngOnInit(): void {}
 }

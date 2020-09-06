@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginFormComponent } from '../login-form/login-form.component';
-import { SessionQuery } from './../../state/session.query';
+import { AuthService } from './../../auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,11 +10,10 @@ import { SessionQuery } from './../../state/session.query';
 })
 export class AuthComponent implements OnInit {
   isLogged = false;
-  constructor(
-    private sessionQuery: SessionQuery,
-    public loginDialog: MatDialog
-  ) {
-    this.sessionQuery.isLogged$.subscribe((b) => (this.isLogged = b));
+  constructor(private authService: AuthService, public loginDialog: MatDialog) {
+    this.authService.appUser$.subscribe((user) => {
+      this.isLogged = !!user;
+    });
   }
 
   ngOnInit(): void {}
