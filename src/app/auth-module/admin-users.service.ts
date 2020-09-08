@@ -26,7 +26,7 @@ export class AdminUsersService {
         isActive,
       })
       .subscribe((x) => {
-        console.log('activateUser', x);
+        // console.log('activateUser', x);
         this.httpLoadUsers();
       });
 

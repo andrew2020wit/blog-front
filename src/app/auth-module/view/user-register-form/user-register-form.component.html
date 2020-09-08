@@ -49,6 +49,7 @@
       <button mat-button color="primary" [disabled]="!registerForm.valid" (click)="editUserData()">
         EditUserData
       </button><br />
+      <p>{{ statusMessage.message | json}}</p>
       <small>You can change password also</small>
     </div>
   </mat-card>

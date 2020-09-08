@@ -26,23 +26,22 @@ export interface IToken {
   providedIn: 'root',
 })
 export class AuthService {
-  appUser$: BehaviorSubject<IToken | null>;
+  private _appUser$ = new BehaviorSubject<IToken | null>(null);
+  appUser$ = this._appUser$.asObservable();
   currentToken = '';
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private adminUsersService: AdminUsersService
-  ) {
-    this.appUser$ = new BehaviorSubject(null);
-  }
+  ) {}
 
   get appUser(): IToken | null {
-    return this.appUser$.getValue();
+    return this._appUser$.getValue();
   }
 
   get appUserRole(): string | null {
-    const user: IToken = this.appUser$.getValue();
+    const user: IToken = this._appUser$.getValue();
     if (!!user) {
       return user.role;
     }
@@ -52,12 +51,12 @@ export class AuthService {
   loadLocalToken() {
     const access_token = localStorage.getItem(keyLocalStorToken);
     if (!access_token) {
-      this.appUser$.next(null);
+      this._appUser$.next(null);
       this.currentToken = '';
     } else {
       this.currentToken = access_token;
       const tokenObj: IToken = jwtHelperService.decodeToken(access_token);
-      this.appUser$.next(tokenObj);
+      this._appUser$.next(tokenObj);
     }
     // console.log('loadLocalToken: ', access_token);
   }
@@ -89,7 +88,7 @@ export class AuthService {
   async logout() {
     this.router.navigate(['']);
     localStorage.removeItem(keyLocalStorToken);
-    this.appUser$.next(null);
+    this._appUser$.next(null);
     this.adminUsersService.users$.next(null);
   }
 }

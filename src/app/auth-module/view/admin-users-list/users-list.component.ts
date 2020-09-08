@@ -26,15 +26,13 @@ export class AdminUsersListComponent implements OnInit, AfterViewInit {
 
   constructor(private adminUsersService: AdminUsersService) {
     this.adminUsersService.httpLoadUsers();
+    // this.dataSource.connect() = this.adminUsersService.users$;
   }
 
-  ngOnInit(): void {
-    // this.dataSource.sort = this.sort;
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.adminUsersService.users$.subscribe((users) => {
-      // console.log(this.dataSource.data);
       this.dataSource.data = users;
       if (!!users) {
         this.dataSource.sort = this.sort;
@@ -48,7 +46,6 @@ export class AdminUsersListComponent implements OnInit, AfterViewInit {
   }
 
   activateUser(userId, isActive) {
-    // console.log('dfsdfs', userId, isActive);
     this.adminUsersService.activateUser(userId, isActive);
   }
 }
