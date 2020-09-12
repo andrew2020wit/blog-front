@@ -14,6 +14,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { baseApiUrl, environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { ArticlesModule } from './articles/articles.module';
 import { AuthModule } from './auth-module/auth.module';
 import { errorInterceptorProvider } from './auth-module/interceptors/errors.interceptor';
 import { jwtInterceptorProvider } from './auth-module/interceptors/jwt.interceptor';
@@ -27,6 +28,7 @@ if (environment.production) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ArticlesModule,
     AuthModule,
     ViewModule,
     BrowserModule,

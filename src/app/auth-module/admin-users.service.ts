@@ -8,17 +8,18 @@ import { UserAdminView } from './dto/user-admin-view.dto';
   providedIn: 'root',
 })
 export class AdminUsersService {
-  users$ = new BehaviorSubject<UserAdminView[]>(null);
+  _users$ = new BehaviorSubject<UserAdminView[]>([]);
+  _usersLoading$ = new BehaviorSubject<boolean>(false);
+  public users$ = this._users$.asObservable();
+  public usersLoading$ = this._usersLoading$.asObservable();
   constructor(private http: HttpClient) {}
-
   httpLoadUsers() {
     this.http
       .get<UserAdminView[]>(httpAdr + '/api/auth/admin/users')
       .subscribe((users) => {
-        this.users$.next(users);
+        this._users$.next(users);
       });
   }
-
   activateUser(userId: string, isActive: boolean) {
     this.http
       .post(httpAdr + '/api/auth/admin/activate-user', {
@@ -29,7 +30,8 @@ export class AdminUsersService {
         // console.log('activateUser', x);
         this.httpLoadUsers();
       });
-
-    // console.log('activateUser');
+  }
+  reset() {
+    this._users$.next([]);
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CreateArticleComponent } from './articles/create-article/create-article.component';
 import { AuthGuard } from './auth-module/auth.guard';
 import { UserProfileComponent } from './auth-module/view/user-profile/user-profile.component';
 import { UserRegisterFormComponent } from './auth-module/view/user-register-form/user-register-form.component';
@@ -8,7 +9,7 @@ import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-pag
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
-  // { path: 'login', component: LoginComponent },
+  { path: 'create-article', component: CreateArticleComponent },
   { path: 'new-user', component: UserRegisterFormComponent },
   // { path: 'admin/users-list', component: AdminUsersListComponent },
   {

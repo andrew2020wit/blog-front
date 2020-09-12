@@ -89,6 +89,6 @@ export class AuthService {
     this.router.navigate(['']);
     localStorage.removeItem(keyLocalStorToken);
     this._appUser$.next(null);
-    this.adminUsersService.users$.next(null);
+    this.adminUsersService.reset();
   }
 }

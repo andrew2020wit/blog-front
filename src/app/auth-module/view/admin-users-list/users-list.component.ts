@@ -26,13 +26,12 @@ export class AdminUsersListComponent implements OnInit, AfterViewInit {
 
   constructor(private adminUsersService: AdminUsersService) {
     this.adminUsersService.httpLoadUsers();
-    // this.dataSource.connect() = this.adminUsersService.users$;
   }
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.adminUsersService.users$.subscribe((users) => {
+    this.adminUsersService._users$.subscribe((users) => {
       this.dataSource.data = users;
       if (!!users) {
         this.dataSource.sort = this.sort;

@@ -1,0 +1,55 @@
+<form [formGroup]="createArticleForm">
+  <!-- <mat-card>
+    <mat-card-header>createArticleForm</mat-card-header>
+    <mat-card-content> -->
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      type="text"
+      minlength="3"
+      maxlength="128"
+      placeholder="Title (3-128 symbol)"
+      formControlName="title"
+    />
+  </mat-form-field>
+  <br />
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      type="text"
+      minlength="3"
+      maxlength="512"
+      placeholder="Description (3-512 symbol)"
+      formControlName="description"
+    />
+  </mat-form-field>
+  <br />
+
+  <mat-form-field style="width: 800px;">
+    <mat-label>Text</mat-label>
+    <textarea
+      style="min-height: 200px;"
+      matInput
+      type="text"
+      minlength="10"
+      maxlength="10000"
+      placeholder="Description (10-10000 symbol)"
+      formControlName="text"
+    ></textarea>
+  </mat-form-field>
+  <br />
+
+  <button
+    mat-button
+    color="primary"
+    [disabled]="!createArticleForm.valid"
+    (click)="send()"
+  >
+    Send to Server
+  </button>
+  <!-- </mat-card-content>
+    </mat-card> -->
+</form>

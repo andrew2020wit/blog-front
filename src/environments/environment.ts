@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 };
 
-export const baseApiUrl = 'http://127.0.0.1:3000/api';
+export const baseApiUrl = 'http://127.0.0.1:3001/api';
 
 /*
  * For easier debugging in development mode, you can import the following file
