@@ -1,7 +1,4 @@
 <form [formGroup]="createArticleForm">
-  <!-- <mat-card>
-    <mat-card-header>createArticleForm</mat-card-header>
-    <mat-card-content> -->
   <mat-form-field>
     <mat-label>Title</mat-label>
     <input
@@ -12,6 +9,15 @@
       placeholder="Title (3-128 symbol)"
       formControlName="title"
     />
+    <mat-error *ngIf="!!createArticleForm.get('title').hasError('required')"
+      >You must enter a value
+    </mat-error>
+    <mat-error *ngIf="!!createArticleForm.get('title').hasError('minlength')"
+      >minlength="3"
+    </mat-error>
+    <mat-error *ngIf="!!createArticleForm.get('title').hasError('maxlength')"
+      >maxlength="128"
+    </mat-error>
   </mat-form-field>
   <br />
 
@@ -25,6 +31,18 @@
       placeholder="Description (3-512 symbol)"
       formControlName="description"
     />
+    <mat-error
+      *ngIf="!!createArticleForm.get('description').hasError('required')"
+      >You must enter a value
+    </mat-error>
+    <mat-error
+      *ngIf="!!createArticleForm.get('description').hasError('minlength')"
+      >minlength="3"
+    </mat-error>
+    <mat-error
+      *ngIf="!!createArticleForm.get('description').hasError('maxlength')"
+      >maxlength="512"
+    </mat-error>
   </mat-form-field>
   <br />
 
@@ -39,6 +57,15 @@
       placeholder="Description (10-10000 symbol)"
       formControlName="text"
     ></textarea>
+    <mat-error *ngIf="!!createArticleForm.get('text').hasError('required')"
+      >You must enter a value
+    </mat-error>
+    <mat-error *ngIf="!!createArticleForm.get('text').hasError('minlength')"
+      >minlength="10"
+    </mat-error>
+    <mat-error *ngIf="!!createArticleForm.get('text').hasError('maxlength')"
+      >maxlength="10000"
+    </mat-error>
   </mat-form-field>
   <br />
 
@@ -50,6 +77,4 @@
   >
     Send to Server
   </button>
-  <!-- </mat-card-content>
-    </mat-card> -->
 </form>

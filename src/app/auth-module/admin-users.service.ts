@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { baseApiUrl } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { httpAdr } from '../config';
 import { UserAdminView } from './dto/user-admin-view.dto';
 
 @Injectable({
@@ -15,14 +15,14 @@ export class AdminUsersService {
   constructor(private http: HttpClient) {}
   httpLoadUsers() {
     this.http
-      .get<UserAdminView[]>(httpAdr + '/api/auth/admin/users')
+      .get<UserAdminView[]>(baseApiUrl + '/api/auth/admin/users')
       .subscribe((users) => {
         this._users$.next(users);
       });
   }
   activateUser(userId: string, isActive: boolean) {
     this.http
-      .post(httpAdr + '/api/auth/admin/activate-user', {
+      .post(baseApiUrl + '/api/auth/admin/activate-user', {
         userId,
         isActive,
       })

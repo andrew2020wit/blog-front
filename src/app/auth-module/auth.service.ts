@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { baseApiUrl } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { httpAdr } from '../config';
 import { StatusMessageDto } from './../dto/status-message.dto';
 import { AdminUsersService } from './admin-users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -63,21 +63,21 @@ export class AuthService {
 
   createUser$(newUser: CreateUserDto) {
     return this.http.post<StatusMessageDto>(
-      httpAdr + '/api/auth/create-user',
+      baseApiUrl + '/api/auth/create-user',
       newUser
     );
   }
 
   editUser$(editUser: CreateUserDto) {
     return this.http.post<StatusMessageDto>(
-      httpAdr + '/api/auth/edit-user',
+      baseApiUrl + '/api/auth/edit-user',
       editUser
     );
   }
 
   async getToken(user: LoginDto) {
     this.http
-      .post<JWTokenDTO>(httpAdr + '/api/auth/get-token-obj', user)
+      .post<JWTokenDTO>(baseApiUrl + '/api/auth/get-token-obj', user)
       .subscribe((tokenObj) => {
         // console.log('get tokenObj:', tokenObj);
         localStorage.setItem(keyLocalStorToken, tokenObj.access_token);

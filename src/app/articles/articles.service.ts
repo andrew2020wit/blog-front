@@ -9,7 +9,7 @@ import { ArticleDTO } from './article.dto';
 export class ArticlesService {
   constructor(private html: HttpClient) {}
   create$(article: ArticleDTO) {
-    const url = baseApiUrl + '/articles';
+    const url = baseApiUrl + '/api/articles';
     return this.html.post(url, article);
   }
 }
