@@ -8,11 +8,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
-import { enableAkitaProdMode } from '@datorama/akita';
-import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
-import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { baseApiUrl, environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ArticlesModule } from './articles/articles.module';
 import { AuthModule } from './auth-module/auth.module';
@@ -20,10 +15,6 @@ import { errorInterceptorProvider } from './auth-module/interceptors/errors.inte
 import { jwtInterceptorProvider } from './auth-module/interceptors/jwt.interceptor';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
-
-if (environment.production) {
-  enableAkitaProdMode();
-}
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,17 +32,11 @@ if (environment.production) {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot(),
-    AkitaNgRouterStoreModule.forRoot(),
   ],
   providers: [
     errorInterceptorProvider,
     jwtInterceptorProvider,
     { provide: MAT_DATE_LOCALE, useValue: 'ru-ru' },
-    {
-      provide: NG_ENTITY_SERVICE_CONFIG,
-      useValue: { baseUrl: baseApiUrl },
-    },
   ],
   bootstrap: [AppComponent],
 })
