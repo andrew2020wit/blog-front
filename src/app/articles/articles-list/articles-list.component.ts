@@ -30,7 +30,6 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-
   loading: boolean;
   articleHeaders: IArticleHeader[] = [];
   constructor(private apollo: Apollo) {}
