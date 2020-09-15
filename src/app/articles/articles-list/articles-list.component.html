@@ -1,0 +1,9 @@
+<div>
+  <div *ngIf="loading">loading...</div>
+  <app-article-header-card
+    *ngFor="let header of articleHeaders"
+    title="{{ header.title }}"
+    authorFullName="{{ header.author.fullName }}"
+    description="{{ header.description }}"
+  ></app-article-header-card>
+</div>
