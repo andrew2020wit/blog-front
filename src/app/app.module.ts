@@ -15,6 +15,8 @@ import { errorInterceptorProvider } from './auth-module/interceptors/errors.inte
 import { jwtInterceptorProvider } from './auth-module/interceptors/jwt.interceptor';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +34,8 @@ import { ViewModule } from './view/view.module';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    GraphQLModule,
+    HttpClientModule,
   ],
   providers: [
     errorInterceptorProvider,
