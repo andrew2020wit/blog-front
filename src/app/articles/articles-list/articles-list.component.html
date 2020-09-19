@@ -1,11 +1,12 @@
-<div>
-  <div *ngIf="loading">loading...</div>
-  <app-article-header-card
-    *ngFor="let header of articleHeaders"
-    title="{{ header.title }}"
-    authorFullName="{{ header.author.fullName }}"
-    description="{{ header.description }}"
-    createdOn="{{ header.createdOn }}"
-    updatedOn="{{ header.updatedOn }}"
-  ></app-article-header-card>
-</div>
+<app-article-header-card
+  *ngFor="let header of articleHeaders"
+  title="{{ header.title }}"
+  authorFullName="{{ header.author.fullName }}"
+  description="{{ header.description }}"
+  createdOn="{{ header.createdOn }}"
+  updatedOn="{{ header.updatedOn }}"
+></app-article-header-card>
+
+<div id="IntersectionTarget" style="height: 10px;"></div>
+
+<div *ngIf="loading && !dataFinished">loading...</div>
