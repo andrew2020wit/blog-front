@@ -82,7 +82,6 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
   intersectionCallback(entries) {
     this.isIntersecting2 = entries[0].isIntersecting;
     if (this.isIntersecting2) {
-      console.log('intersectionCallback', entries);
       this.loadArtHeadersNext();
     }
   }

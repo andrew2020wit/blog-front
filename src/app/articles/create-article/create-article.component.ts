@@ -24,16 +24,11 @@ export class CreateArticleComponent implements OnInit {
 
   ngOnInit(): void {}
   send() {
-    if (!!this.authService.appUser) {
-      this.articleService
-        .create$({
-          title: this.createArticleForm.get('title').value,
-          description: this.createArticleForm.get('description').value,
-          text: this.createArticleForm.get('text').value,
-        })
-        .subscribe((x) => console.log('x', x));
-    } else {
-      console.error('appUser not exist');
-    }
+    const title = this.createArticleForm.get('title').value;
+    const description = this.createArticleForm.get('description').value;
+    const text = this.createArticleForm.get('text').value;
+    this.articleService
+      .createArticle$(title, description, text)
+      .subscribe((x) => console.log('x', x));
   }
 }
