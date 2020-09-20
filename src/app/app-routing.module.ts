@@ -9,9 +9,12 @@ import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-pag
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'create-article', component: CreateArticleComponent },
+  {
+    path: 'create-article',
+    component: CreateArticleComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'new-user', component: UserRegisterFormComponent },
-  // { path: 'admin/users-list', component: AdminUsersListComponent },
   {
     path: 'user-profile',
     component: UserProfileComponent,

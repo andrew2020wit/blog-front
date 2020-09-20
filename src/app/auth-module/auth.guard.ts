@@ -11,6 +11,8 @@ export class AuthGuard implements CanActivate {
     if (!!this.authService.appUser) {
       return true;
     }
+    setTimeout(() => alert('login or register!'), 0);
+
     this.router.navigate(['']);
     return false;
   }
