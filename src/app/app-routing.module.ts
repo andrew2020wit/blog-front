@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ArticleViewComponent } from './articles/article-view/article-view.component';
 import { CreateArticleComponent } from './articles/create-article/create-article.component';
 import { AuthGuard } from './auth-module/auth.guard';
 import { UserProfileComponent } from './auth-module/view/user-profile/user-profile.component';
@@ -9,6 +10,7 @@ import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-pag
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
+  { path: 'article-view/:id', component: ArticleViewComponent },
   {
     path: 'create-article',
     component: CreateArticleComponent,
