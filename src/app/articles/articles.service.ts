@@ -11,18 +11,28 @@ export class ArticlesService {
       $description: String!
       $text: String!
       $title: String!
-      $userId: String!
     ) {
-      createArticle(
+      createArticle(description: $description, text: $text, title: $title)
+    }
+  `;
+  EditArticlesGQL = gql`
+    mutation editArticle(
+      $articleId: String!
+      $description: String!
+      $text: String!
+      $title: String!
+    ) {
+      editArticle(
+        articleId: $articleId
         description: $description
         text: $text
         title: $title
-        userId: $userId
       )
     }
   `;
 
   constructor(private apollo: Apollo, private authService: AuthService) {}
+
   createArticle$(title: string, description: string, text: string) {
     const userId = this.authService.appUser.sub;
     if (!userId) {
@@ -35,8 +45,25 @@ export class ArticlesService {
         description,
         text,
         title,
-        userId,
       },
+    });
+  }
+
+  editArticle$(
+    articleId: string,
+    title: string,
+    description: string,
+    text: string
+  ) {
+    const userId = this.authService.appUser.sub;
+    if (!userId) {
+      console.log('this.authService.appUser.sub false');
+      return;
+    }
+
+    return this.apollo.mutate({
+      mutation: this.EditArticlesGQL,
+      variables: { articleId, description, text, title },
     });
   }
 }

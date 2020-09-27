@@ -1,8 +1,8 @@
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -13,10 +13,9 @@ import { ArticlesModule } from './articles/articles.module';
 import { AuthModule } from './auth-module/auth.module';
 import { errorInterceptorProvider } from './auth-module/interceptors/errors.interceptor';
 import { jwtInterceptorProvider } from './auth-module/interceptors/jwt.interceptor';
+import { GraphQLModule } from './graphql.module';
 import { ShareModule } from './share.module';
 import { ViewModule } from './view/view.module';
-import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,11 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     GraphQLModule,
     HttpClientModule,
   ],
-  providers: [
-    errorInterceptorProvider,
-    jwtInterceptorProvider,
-    { provide: MAT_DATE_LOCALE, useValue: 'ru-ru' },
-  ],
+  providers: [errorInterceptorProvider, jwtInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

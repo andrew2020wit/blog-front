@@ -1,0 +1,30 @@
+<mat-tab-group *ngIf="appUserId === authorId">
+  <mat-tab label="Article view"
+    ><app-article-view
+      title="{{ title }}"
+      description="{{ description }}"
+      text="{{ text }}"
+      authorFullName="{{ authorFullName }}"
+      createdOn="{{ createdOn }}"
+      updatedOn="{{ updatedOn }}"
+    ></app-article-view>
+  </mat-tab>
+  <mat-tab label="Article edit">
+    <app-create-article
+      initArticleId="{{ artId }} "
+      initTitle="{{ title }}"
+      initDescription="{{ description }}"
+      initText="{{ text }}"
+    ></app-create-article
+  ></mat-tab>
+</mat-tab-group>
+
+<app-article-view
+  *ngIf="!(appUserId === authorId)"
+  title="{{ title }}"
+  description="{{ description }}"
+  text="{{ text }}"
+  authorFullName="{{ authorFullName }}"
+  createdOn="{{ createdOn }}"
+  updatedOn="{{ updatedOn }}"
+></app-article-view>
