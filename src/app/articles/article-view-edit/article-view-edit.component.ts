@@ -58,8 +58,10 @@ export class ArticleViewEditComponent implements OnInit {
   ) {
     this.artId = this.activateRoute.snapshot.params['id'];
     // console.log(`!${this.artId}!`);
-
-    this.appUserId = this.authService.appUser.sub;
+    const appUser = this.authService.appUser;
+    if (appUser) {
+      this.appUserId = this.authService.appUser.sub;
+    }
   }
 
   ngOnInit(): void {
