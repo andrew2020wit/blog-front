@@ -9,9 +9,9 @@
     <mat-card-content>
       <div>{{ description }}</div>
       <div style="text-align: right;">
-        created: {{ createdOn2 | date: "short" }}
+        created: {{ createdOn | utcToLocalTime | date: "short" }}
         <span *ngIf="createdOn != updatedOn"
-          >updated: {{ updatedOn2 | date: "short" }}
+          >updated: {{ updatedOn | utcToLocalTime | date: "short" }}
         </span>
       </div>
     </mat-card-content>
