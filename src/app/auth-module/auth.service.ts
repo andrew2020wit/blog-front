@@ -57,8 +57,8 @@ export class AuthService {
       this.currentToken = access_token;
       const tokenObj: IToken = jwtHelperService.decodeToken(access_token);
       this._appUser$.next(tokenObj);
+      this.checkExpOfToken();
     }
-    // console.log('loadLocalToken: ', access_token);
   }
 
   createUser$(newUser: CreateUserDto) {
@@ -79,7 +79,6 @@ export class AuthService {
     this.http
       .post<JWTokenDTO>(baseApiUrl + '/api/auth/get-token-obj', user)
       .subscribe((tokenObj) => {
-        // console.log('get tokenObj:', tokenObj);
         localStorage.setItem(keyLocalStorToken, tokenObj.access_token);
         this.loadLocalToken();
       });
@@ -90,5 +89,22 @@ export class AuthService {
     localStorage.removeItem(keyLocalStorToken);
     this._appUser$.next(null);
     this.adminUsersService.reset();
+  }
+
+  checkExpOfToken(): boolean {
+    if (!this.appUser) {
+      return false;
+    }
+
+    const exp = 1000 * this.appUser.exp;
+    const curTime: number = new Date().getTime();
+
+    if (exp < curTime) {
+      console.log('token too old, logout');
+      this.logout();
+      return false;
+    }
+
+    return true;
   }
 }
