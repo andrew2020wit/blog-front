@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   links = menuList;
   constructor(private authService: AuthService) {
     this.authService.loadLocalToken();
-    console.log('AppComponent: loadLocalToken()');
   }
   ngOnInit(): void {}
 }

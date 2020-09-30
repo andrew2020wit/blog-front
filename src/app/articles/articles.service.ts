@@ -31,6 +31,12 @@ export class ArticlesService {
     }
   `;
 
+  DisActiveArticleGQL = gql`
+    mutation disActiveArticle($articleId: String!) {
+      disActiveArticle(articleId: $articleId)
+    }
+  `;
+
   constructor(private apollo: Apollo, private authService: AuthService) {}
 
   createArticle$(title: string, description: string, text: string) {
@@ -64,6 +70,19 @@ export class ArticlesService {
     return this.apollo.mutate({
       mutation: this.EditArticlesGQL,
       variables: { articleId, description, text, title },
+    });
+  }
+
+  disActiveArticle$(articleId: string) {
+    const userId = this.authService.appUser.sub;
+    if (!userId) {
+      console.log('this.authService.appUser.sub false');
+      return;
+    }
+
+    return this.apollo.mutate({
+      mutation: this.DisActiveArticleGQL,
+      variables: { articleId },
     });
   }
 }

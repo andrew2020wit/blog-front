@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
 import { AuthService } from './../../auth-module/auth.service';
+import { ArticlesService } from './../articles.service';
 
 const ArticleGQL = gql`
   query getArticle($artId: String!) {
@@ -50,17 +51,23 @@ export class ArticleViewEditComponent implements OnInit {
   authorFullName: string;
   authorId: string;
   appUserId: string;
+  isAdmin = false;
 
   constructor(
     private apollo: Apollo,
     private activateRoute: ActivatedRoute,
-    private authService: AuthService
+    private router: Router,
+    private authService: AuthService,
+    private articleService: ArticlesService
   ) {
     this.artId = this.activateRoute.snapshot.params['id'];
     // console.log(`!${this.artId}!`);
     const appUser = this.authService.appUser;
     if (appUser) {
-      this.appUserId = this.authService.appUser.sub;
+      this.appUserId = appUser.sub;
+      if (appUser.role === 'admin') {
+        this.isAdmin = true;
+      }
     }
   }
 
@@ -84,5 +91,15 @@ export class ArticleViewEditComponent implements OnInit {
         this.authorFullName = art.author.fullName;
         this.authorId = art.author.id;
       });
+  }
+
+  deleteArticle() {
+    if (!confirm('Article will be deleted')) {
+      return;
+    }
+    this.articleService
+      .disActiveArticle$(this.artId)
+      .subscribe((x) => console.log('deleteArticle ', x));
+    this.router.navigate(['']);
   }
 }

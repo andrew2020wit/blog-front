@@ -8,6 +8,9 @@
       createdOn="{{ createdOn }}"
       updatedOn="{{ updatedOn }}"
     ></app-article-view>
+    <button mat-button color="primary" (click)="deleteArticle()">
+      Delete this article
+    </button>
   </mat-tab>
   <mat-tab label="Article edit">
     <app-create-article
@@ -19,12 +22,16 @@
   ></mat-tab>
 </mat-tab-group>
 
-<app-article-view
-  *ngIf="!(appUserId === authorId)"
-  title="{{ title }}"
-  description="{{ description }}"
-  text="{{ text }}"
-  authorFullName="{{ authorFullName }}"
-  createdOn="{{ createdOn }}"
-  updatedOn="{{ updatedOn }}"
-></app-article-view>
+<div *ngIf="!(appUserId === authorId)">
+  <app-article-view
+    title="{{ title }}"
+    description="{{ description }}"
+    text="{{ text }}"
+    authorFullName="{{ authorFullName }}"
+    createdOn="{{ createdOn }}"
+    updatedOn="{{ updatedOn }}"
+  ></app-article-view>
+  <button mat-button color="primary" (click)="deleteArticle()" *ngIf="isAdmin">
+    Delete this article
+  </button>
+</div>
