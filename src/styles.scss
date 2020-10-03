@@ -1,5 +1,95 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
 
+// http://mcg.mbitson.com/
+$custom-yellow-palette: (50 : #fffdf9,
+  100 : #fffbf0,
+  200 : #fff9e6,
+  300 : #fff6db,
+  400 : #fff4d4,
+  500 : #fff2cc,
+  600 : #fff0c7,
+  700 : #ffeec0,
+  800 : #ffecb9,
+  900 : #ffe8ad,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffffff,
+  A700 : #ffffff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  ));
+
+/* For use in src/lib/core/theming/_palette.scss */
+$custom-green-palette: (50 : #e3e8e1,
+  100 : #bac5b5,
+  200 : #8c9e84,
+  300 : #5e7753,
+  400 : #3c592e,
+  500 : #193c09,
+  600 : #163608,
+  700 : #122e06,
+  800 : #0e2705,
+  900 : #081a02,
+  A100 : #70ff58,
+  A200 : #44ff25,
+  A400 : #22f100,
+  A700 : #1fd800,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  ));
+
+// ================= deeppurple-amber.scss
+// $da-primary: mat-palette($mat-deep-purple);
+// $da-accent: mat-palette($mat-amber, A200, A100, A400);
+
+// $da-theme: mat-light-theme((color: (primary: $da-primary,
+//       accent: $da-accent,
+//     )));
+
+// ========================================
+
+$custom-app-primary: mat-palette($custom-yellow-palette);
+$custom-app-accent: mat-palette($mat-green);
+// The warn palette is optional (defaults to red).
+$custom-app-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$custom-app-theme: mat-light-theme((color: (primary: $custom-app-primary,
+      accent: $custom-app-accent,
+      warn: $custom-app-warn,
+    )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($custom-app-theme);
 
 
 html,
