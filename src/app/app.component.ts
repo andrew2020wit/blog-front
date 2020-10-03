@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@app/auth-module/auth.service';
 import { menuList } from './site-menu';
 
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   links = menuList;
   darkAppThemeOn = false;
   customLightAppThemeOn = true;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.authService.loadLocalToken();
   }
   ngOnInit(): void {}
@@ -26,5 +27,9 @@ export class AppComponent implements OnInit {
     if (theme === 'customLightAppThemeOn') {
       this.customLightAppThemeOn = true;
     }
+  }
+
+  toHome() {
+    this.router.navigate(['']);
   }
 }

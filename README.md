@@ -10,6 +10,7 @@ It is the learn project.
 6. Angular-Material
 7. GraphQL
 8. infinite scroll
+9. Material multi/custom theme
 
 Back-project: https://github.com/andrew2020wit/blog-back
 

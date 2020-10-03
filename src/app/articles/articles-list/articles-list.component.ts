@@ -44,8 +44,9 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
   filterInputKeyUp: Observable<Event>;
 
   constructor(private apollo: Apollo) {
-    this.intersectionObserver = new IntersectionObserver((entries) =>
-      this.intersectionCallback(entries)
+    this.intersectionObserver = new IntersectionObserver(
+      (entries) => this.intersectionCallback(entries),
+      { rootMargin: '0px 0px 1000px 0px' }
     );
   }
 
@@ -81,7 +82,10 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   intersectionCallback(entries) {
     this.isIntersecting2 = entries[0].isIntersecting;
-    if (this.isIntersecting2) {
+    setTimeout(() => this.intersectionCallbackAsinc(), 0);
+  }
+  intersectionCallbackAsinc() {
+    if (this.isIntersecting2 && !this.dataFinished) {
       this.loadArtHeadersNext();
     }
   }

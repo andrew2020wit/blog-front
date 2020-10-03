@@ -7,7 +7,9 @@
     <button mat-button (click)="menuOn = !menuOn" color="accent">
       <mat-icon>view_sidebar</mat-icon>Menu
     </button>
-    <h1 id="homeTitle" class="mat-h1">Amazing Blog</h1>
+    <button mat-button color="accent" title="to home" (click)="toHome()">
+      <h1 id="homeTitle" class="mat-h1">Amazing Blog</h1>
+    </button>
 
     <span style="flex: 1 1 auto;"></span>
 
@@ -22,7 +24,7 @@
         Set dark theme
       </button>
       <button mat-menu-item (click)="setTheme('customLightAppThemeOn')">
-        customLightAppThemeOn
+        custom yellow theme
       </button>
     </mat-menu>
 
@@ -50,12 +52,15 @@
   <!--footer-->
   <mat-toolbar color="primary">
     <button mat-button (click)="menuOn = !menuOn" color="accent">Menu</button>
-    <div>Test-demo angular project.</div>
+    <a routerLink="">
+      <button mat-button color="accent" title="to home">
+        <h1 id="homeTitle" class="mat-h4">Test-demo angular project.</h1>
+      </button>
+    </a>
+    <span></span>
     <span style="flex: 1 1 auto;"></span>
-    <a routerLink="/"
-      ><button mat-button color="accent">
-        <mat-icon>home</mat-icon> Go to home
-      </button></a
-    >
+    <button mat-button color="accent" (click)="toHome()">
+      <mat-icon>home</mat-icon> Go to home
+    </button>
   </mat-toolbar>
 </div>
