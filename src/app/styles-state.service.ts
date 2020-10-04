@@ -6,17 +6,61 @@ export interface IStylesState {
   customLightAppThemeOn: boolean;
 }
 
+const keyLocalStorStyleState = 'keyLocalStorStyleState';
+
 @Injectable({
   providedIn: 'root',
 })
 export class StylesStateService {
-  private _stylesState$ = new BehaviorSubject<IStylesState>({
-    darkAppThemeOn: false,
-    customLightAppThemeOn: true,
-  });
+  private _stylesState$ = new BehaviorSubject<IStylesState>(
+    this.getDefaultState()
+  );
   public stylesState$ = this._stylesState$.asObservable();
 
-  constructor() {}
+  constructor() {
+    this.loadLocalStyleStore();
+  }
+
+  loadLocalStyleStore() {
+    const localStorStyleStateStr = localStorage.getItem(keyLocalStorStyleState);
+    if (!localStorStyleStateStr) {
+      this._stylesState$.next(this.getDefaultState());
+    } else {
+      const localStorStyleStateObj = JSON.parse(
+        localStorStyleStateStr
+      ) as IStylesState;
+      console.log('localStorStyleStateObj', localStorStyleStateObj);
+
+      if (localStorStyleStateObj.customLightAppThemeOn) {
+        this.setTheme('customLightAppThemeOn');
+        return;
+      }
+      if (localStorStyleStateObj.darkAppThemeOn) {
+        this.setTheme('darkAppThemeOn');
+        return;
+      }
+      this._stylesState$.next(this.getZeroState());
+    }
+  }
+
+  saveLocalStyleStore(state) {
+    localStorage.setItem(keyLocalStorStyleState, JSON.stringify(state));
+  }
+
+  getDefaultState(): IStylesState {
+    return {
+      darkAppThemeOn: false,
+      customLightAppThemeOn: true,
+    };
+  }
+
+  getZeroState(): IStylesState {
+    return {
+      darkAppThemeOn: false,
+      customLightAppThemeOn: false,
+    };
+  }
+
   setTheme(theme: string): void {
     const state: IStylesState = {
       darkAppThemeOn: false,
@@ -29,5 +73,6 @@ export class StylesStateService {
       state.customLightAppThemeOn = true;
     }
     this._stylesState$.next(state);
+    this.saveLocalStyleStore(state);
   }
 }

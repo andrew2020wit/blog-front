@@ -30,13 +30,13 @@ $custom-light-app-accent: mat-palette($mat-amber, A400, A200, A700);
 $custom-light-app-warn: mat-palette($mat-red);
 
 $mat-light-theme-background: (status-bar: map_get($mat-grey, 300),
-  app-bar: map_get($mat-grey, 100),
+  app-bar: map_get($mat-yellow, 50),
   background: map_get($mat-yellow, 50),
   hover: rgba(black, 0.04),
   card: map_get($mat-yellow, 50),
   dialog: map_get($mat-yellow, 50),
   disabled-button: rgba(black, 0.12),
-  raised-button: map_get($mat-yellow, 50),
+  raised-button: map_get($mat-yellow, 200),
   focused-button: $dark-focused,
   selected-button: map_get($mat-grey, 300),
   selected-disabled-button: map_get($mat-grey, 400),
