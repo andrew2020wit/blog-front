@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth-module/auth.service';
+import { Observable } from 'rxjs';
 import { menuList } from './site-menu';
+import { IStylesState, StylesStateService } from './styles-state.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +13,20 @@ import { menuList } from './site-menu';
 export class AppComponent implements OnInit {
   menuOn = true;
   links = menuList;
-  darkAppThemeOn = false;
-  customLightAppThemeOn = true;
-  constructor(private authService: AuthService, private router: Router) {
+  styleState$: Observable<IStylesState>;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private stylesStateService: StylesStateService
+  ) {
     this.authService.loadLocalToken();
+    this.styleState$ = this.stylesStateService.stylesState$;
   }
   ngOnInit(): void {}
 
-  setTheme(theme: string): void {
-    this.darkAppThemeOn = false;
-    this.customLightAppThemeOn = false;
-    if (theme === 'darkAppThemeOn') {
-      this.darkAppThemeOn = true;
-    }
-    if (theme === 'customLightAppThemeOn') {
-      this.customLightAppThemeOn = true;
-    }
+  setTheme(str: string) {
+    this.stylesStateService.setTheme(str);
   }
 
   toHome() {

@@ -1,6 +1,6 @@
 <div
-  [class.dark-app-theme]="darkAppThemeOn"
-  [class.custom-light-app-theme]="customLightAppThemeOn"
+  [class.dark-app-theme]="(styleState$ | async).darkAppThemeOn"
+  [class.custom-light-app-theme]="(styleState$ | async).customLightAppThemeOn"
 >
   <!--header-->
   <mat-toolbar color="primary">

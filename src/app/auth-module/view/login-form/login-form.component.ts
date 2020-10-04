@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/auth-module/auth.service';
+import { IStylesState, StylesStateService } from '@app/styles-state.service';
+import { Observable } from 'rxjs';
 import { LoginDto } from '../../dto/login.dto';
 
 @Component({
@@ -11,17 +12,18 @@ import { LoginDto } from '../../dto/login.dto';
 })
 export class LoginFormComponent implements OnInit {
   newLoginForm: FormGroup;
+  styleState$: Observable<IStylesState>;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
+    private stylesStateService: StylesStateService
   ) {
     this.newLoginForm = this.formBuilder.group({
       login: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+    this.styleState$ = this.stylesStateService.stylesState$;
   }
 
   ngOnInit(): void {}

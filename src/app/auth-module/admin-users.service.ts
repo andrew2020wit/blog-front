@@ -8,8 +8,8 @@ import { UserAdminView } from './dto/user-admin-view.dto';
   providedIn: 'root',
 })
 export class AdminUsersService {
-  _users$ = new BehaviorSubject<UserAdminView[]>([]);
-  _usersLoading$ = new BehaviorSubject<boolean>(false);
+  private _users$ = new BehaviorSubject<UserAdminView[]>([]);
+  private _usersLoading$ = new BehaviorSubject<boolean>(false);
   public users$ = this._users$.asObservable();
   public usersLoading$ = this._usersLoading$.asObservable();
   constructor(private http: HttpClient) {}

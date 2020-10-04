@@ -31,7 +31,7 @@ export class AdminUsersListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.adminUsersService._users$.subscribe((users) => {
+    this.adminUsersService.users$.subscribe((users) => {
       this.dataSource.data = users;
       if (!!users) {
         this.dataSource.sort = this.sort;

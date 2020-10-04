@@ -1,4 +1,7 @@
-<div>
+<div
+  [class.dark-app-theme]="(styleState$ | async).darkAppThemeOn"
+  [class.custom-light-app-theme]="(styleState$ | async).customLightAppThemeOn"
+>
   <form [formGroup]="newLoginForm">
     <mat-card>
       <mat-card-header>Welcome!</mat-card-header>
