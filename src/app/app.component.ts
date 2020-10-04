@@ -31,5 +31,6 @@ export class AppComponent implements OnInit {
 
   toHome() {
     this.router.navigate(['']);
+    setTimeout(() => document.location.reload(), 0);
   }
 }

@@ -58,6 +58,7 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
         createOnCursor: this.createOnCursor,
       },
     });
+    setTimeout(() => this.autoLoader(), 200);
   }
 
   ngAfterViewInit(): void {
@@ -82,13 +83,17 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   intersectionCallback(entries) {
     this.isIntersecting2 = entries[0].isIntersecting;
-    setTimeout(() => this.intersectionCallbackAsinc(), 0);
+    // setTimeout(() => this.intersectionCallbackAsinc(), 0);
   }
-  intersectionCallbackAsinc() {
+
+  async autoLoader() {
     if (this.isIntersecting2 && !this.dataFinished) {
       this.loadArtHeadersNext();
     }
+    setTimeout(() => this.autoLoader(), 200);
   }
+
+  intersectionCallbackAsinc() {}
 
   loadArtHeaders({ data, loading }) {
     this.loading = loading;

@@ -10,6 +10,7 @@ import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-pag
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
+  { path: 'home2', redirectTo: '/' },
   { path: 'article-view/:id', component: ArticleViewEditComponent },
   {
     path: 'create-article',
