@@ -30,9 +30,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { GraphQLModule } from './graphql.module';
 import { UtcToLocalTimePipe } from './utils/utc-to-localtime.pipe';
 
-const customModules = [AppRoutingModule];
+const customModules = [AppRoutingModule, GraphQLModule];
 const angularModules = [
   BrowserAnimationsModule,
   HttpClientModule,

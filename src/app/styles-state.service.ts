@@ -29,8 +29,6 @@ export class StylesStateService {
       const localStorStyleStateObj = JSON.parse(
         localStorStyleStateStr
       ) as IStylesState;
-      console.log('localStorStyleStateObj', localStorStyleStateObj);
-
       if (localStorStyleStateObj.customLightAppThemeOn) {
         this.setTheme('customLightAppThemeOn');
         return;
