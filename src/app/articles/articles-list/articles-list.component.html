@@ -13,6 +13,8 @@
   </button>
 </mat-form-field>
 
+<div class="errorLoadingDiv" *ngIf="errorLoading">No connection to server</div>
+
 <app-article-header-card
   *ngFor="let header of articleHeaders"
   title="{{ header.title }}"

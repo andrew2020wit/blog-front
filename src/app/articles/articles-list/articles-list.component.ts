@@ -39,6 +39,7 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
   createOnCursor: Date = new Date();
   dataFinished = false;
   loading = false;
+  errorLoading = false;
 
   filterInput: Element;
   filterInputKeyUp: Observable<Event>;
@@ -57,6 +58,7 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
         take: this.takeV,
         createOnCursor: this.createOnCursor,
       },
+      errorPolicy: 'all',
     });
     setTimeout(() => this.autoLoader(), 200);
   }
@@ -90,10 +92,10 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isIntersecting2 && !this.dataFinished) {
       this.loadArtHeadersNext();
     }
-    setTimeout(() => this.autoLoader(), 200);
+    if (!this.errorLoading) {
+      setTimeout(() => this.autoLoader(), 200);
+    }
   }
-
-  intersectionCallbackAsinc() {}
 
   loadArtHeaders({ data, loading }) {
     this.loading = loading;
@@ -117,9 +119,15 @@ export class ArticlesListComponent implements OnInit, AfterViewInit, OnDestroy {
         createOnCursor: this.createOnCursor,
         sample: this.gqlSample,
       },
-    }).then(({ data, loading }) => {
-      this.loadArtHeaders({ data, loading });
-    });
+    }).then(
+      ({ data, loading }) => {
+        this.loadArtHeaders({ data, loading });
+      },
+      (error) => {
+        this.errorLoading = true;
+        console.log('errorLoading', error);
+      }
+    );
   }
 
   titleFilterReLoad() {
