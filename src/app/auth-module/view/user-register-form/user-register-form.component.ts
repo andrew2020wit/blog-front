@@ -56,7 +56,7 @@ export class UserRegisterFormComponent implements OnInit {
     newUser.fullName = this.registerForm.get('fullName').value;
     this.authService.createUser$(newUser).subscribe((m) => {
       this.statusMessage = m;
-      console.log(m);
+      console.log('statusMessage:', m);
     });
   }
   async continue() {

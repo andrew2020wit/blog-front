@@ -20,8 +20,6 @@ export class AuthComponent implements OnInit {
 
   popupLogIn() {
     const dialogRef = this.loginDialog.open(LoginFormComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

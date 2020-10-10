@@ -43,12 +43,12 @@ export class CreateArticleComponent implements OnInit {
     if (this.initArticleId) {
       this.articleService
         .editArticle$(this.initArticleId, title, description, text)
-        .subscribe((x) => console.log('x', x));
+        .subscribe((x) => console.log('the article edited', x));
       document.location.reload();
     } else {
       this.articleService
         .createArticle$(title, description, text)
-        .subscribe((x) => console.log('x', x));
+        .subscribe((x) => console.log('the article created: ', x));
       this.router.navigate(['']);
     }
   }

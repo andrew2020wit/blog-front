@@ -61,7 +61,6 @@ export class ArticleViewEditComponent implements OnInit {
     private articleService: ArticlesService
   ) {
     this.artId = this.activateRoute.snapshot.params['id'];
-    // console.log(`!${this.artId}!`);
     const appUser = this.authService.appUser;
     if (appUser) {
       this.appUserId = appUser.sub;
@@ -80,8 +79,6 @@ export class ArticleViewEditComponent implements OnInit {
         },
       })
       .valueChanges.subscribe(({ data, loading }) => {
-        console.log('data', data);
-        console.log('loading', loading);
         const art = data.getArticle as IArticle;
         this.title = art.title;
         this.text = art.text;
