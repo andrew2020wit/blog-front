@@ -4,9 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'utcToLocalTime',
 })
 export class UtcToLocalTimePipe implements PipeTransform {
-  transform(date: Date): Date {
+  transform(date: number | string | Date): Date {
     if (!date) {
-      return date;
+      return undefined;
     }
     const date2 = new Date(date);
     const timezoneOffset = 60 * 1000 * new Date().getTimezoneOffset();
