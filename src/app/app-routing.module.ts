@@ -5,6 +5,7 @@ import { CreateArticleComponent } from './articles/create-article/create-article
 import { AuthGuard } from './auth-module/auth.guard';
 import { UserProfileComponent } from './auth-module/view/user-profile/user-profile.component';
 import { UserRegisterFormComponent } from './auth-module/view/user-register-form/user-register-form.component';
+import { AboutComponent } from './view/pages/about/about.component';
 import { HomePageComponent } from './view/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './view/pages/not-found-page/not-found-page.component';
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'about', component: AboutComponent },
   { path: '**', component: NotFoundPageComponent },
 ];
 

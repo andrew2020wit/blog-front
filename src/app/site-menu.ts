@@ -6,8 +6,5 @@ export interface ILink {
 export const menuList: ILink[] = [
   { name: 'Home', link: '/' },
   { name: 'Create Article', link: '/create-article' },
-  // { name: 'Login', link: '/login' },
-  // { name: 'Register', link: '/new-user' },
-  // { name: 'UserProfile', link: '/user-profile' },
-  // { name: 'UsersList(forAdmin)', link: '/admin/users-list' },
+  { name: 'About', link: '/about' },
 ];
